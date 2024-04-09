@@ -6,7 +6,7 @@ public static class MorseToInstrumentalTranslator
 {
     private const string SYMBOL_SPACE = " "; // 1 space - Between individual symbols (dots and dashes) of one character (letter or number), there should be a pause that is equivalent in length to one dot.
 
-    private static readonly Dictionary<char, string> _morseCodeMap = new ()
+    private static readonly Dictionary<char, string> _instrumentCodeMap = new ()
     {
         {'.', "X"},
         {'-', "XXX"},
@@ -20,7 +20,7 @@ public static class MorseToInstrumentalTranslator
 
         foreach (var letter in morseCode)
         {
-            if (_morseCodeMap.TryGetValue(letter, out var instrumentalCode))
+            if (_instrumentCodeMap.TryGetValue(letter, out var instrumentalCode))
             {
                 sequence.Append(instrumentalCode);
                 sequence.Append(SYMBOL_SPACE);

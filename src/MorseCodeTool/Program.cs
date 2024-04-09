@@ -1,4 +1,5 @@
-﻿using NAudio.Wave;
+﻿using MorseCodeTool.Translators;
+using NAudio.Wave;
 
 namespace MorseCodeTool;
 
@@ -52,7 +53,7 @@ public sealed class Program
 
     private static Task DoWork(CancellationToken cancellationToken)
     {
-        var morseProvider = new MorseWaveProvider("sos");
+        var morseProvider = MorseWaveProviderFactory.FromText("sos");
         var waveOut = new WaveOutEvent();
         waveOut.Init(morseProvider);
         waveOut.Play();
