@@ -95,8 +95,8 @@ public class MorseWaveProvider : IWaveProvider
         {'$', "...-..-"},
         {'&', ".-..."},
         {'_', "..--.-"},
-        {' ', " "},
-        {' ', " "}
+        {' ', " "}, // ASCII 32 - soft space
+        {' ', " "} // ASCII 160 - hard space
     };
 
     private readonly string _morseSequence;
