@@ -24,12 +24,15 @@ public class MorseWaveProvider : IWaveProvider
         _instrumentalSequence = instrumentalSequence;
 
         WaveFormat = new WaveFormat(sampleRate, 16, 1); // 16 bit mono
+        Console.Write("Getting new buffer..");
     }
 
     public WaveFormat WaveFormat { get; }
 
     public int Read(byte[] buffer, int offset, int count)
     {
+        Console.Write(".");
+
         void UpdatePositions()
         {
             _samplePosition++;
@@ -59,7 +62,7 @@ public class MorseWaveProvider : IWaveProvider
                 for (var n = 0; n < floatBuffer.Length; n++)
                 {
                     UpdatePositions();
-                    if (_instrumentalSequence[_sequencePosition] is (char) 32 or (char) 160)
+                    if (_instrumentalSequence[_sequencePosition] is (char) 32)
                     {
                         // Space between characters or words, no sound
                         floatBuffer[n] = 0;

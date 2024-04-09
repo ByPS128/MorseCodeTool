@@ -40,7 +40,7 @@ public sealed class Program
         {
             e.Cancel = true;
             cancellationTokenSource.Cancel(); // Indicates that cancellation has been requested
-            Console.WriteLine("Terminating the application...");
+            Console.WriteLine("\nTerminating the application...");
         };
 
         Console.WriteLine("Morse Code generator started. Press CTRL+C to stop.");
