@@ -89,7 +89,7 @@ public class MorseWaveProvider : IWaveProvider
         }
     }
 
-    public void WriteWaveData(WaveFileWriter waveOut, int milliseconds)
+    public void WriteWaveData(Stream waveOut, int milliseconds)
     {
         var totalBytesNeeded = _sampleRate * milliseconds * 2 / 1000; // Calculate the total number of bytes (16 bits per sample, so 2 bytes)
         var bufferLength = _sampleRate / 8; // Buffer size for 1/8 second of audio

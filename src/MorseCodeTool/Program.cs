@@ -20,6 +20,7 @@ public sealed class Program
 
             // create a wave file with the SOS signal for 10 seconds
             await CreateWaveFile("sos", 10 * 1000, tempFilePath);
+            Console.WriteLine("Wave file created.\n\n");
         }
 
         using var cancellationTokenSource = new CancellationTokenSource();
