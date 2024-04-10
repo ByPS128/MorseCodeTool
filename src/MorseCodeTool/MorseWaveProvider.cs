@@ -89,10 +89,34 @@ public class MorseWaveProvider : IWaveProvider
         }
     }
 
+    public void WriteWaveData(WaveFileWriter waveOut, int milliseconds)
+    {
+        var totalBytesNeeded = _sampleRate * milliseconds * 2 / 1000; // Calculate the total number of bytes (16 bits per sample, so 2 bytes)
+        var bufferLength = _sampleRate / 8; // Buffer size for 1/8 second of audio
+        var doubleBufferLength = bufferLength * 2;
+        var pool = ArrayPool<byte>.Shared;
+        var buffer = pool.Rent(doubleBufferLength); // 2 bytes per sample
+        try
+        {
+            var bytesGenerated = 0;
+            while (bytesGenerated < totalBytesNeeded)
+            {
+                var bytesToGenerate = Math.Min(buffer.Length, totalBytesNeeded - bytesGenerated);
+                var bytesRead = Read(buffer, 0, bytesToGenerate);
+                waveOut.Write(buffer, 0, bytesRead);
+                bytesGenerated += bytesRead;
+            }
+        }
+        finally
+        {
+            pool.Return(buffer);
+        }
+    }
+
     private void WriteSamplesToBuffer(Span<float> samples, Span<byte> buffer)
     {
         // I will convert the float samples to 16-bit integers and then to bytes
-        for (var i = 0; i < samples.Length; i++) 
+        for (var i = 0; i < samples.Length; i++)
         {
             var sample = (short) (samples[i] * short.MaxValue);
             buffer[2 * i] = (byte) (sample & 0xFF);

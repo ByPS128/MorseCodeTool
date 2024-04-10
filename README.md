@@ -1,6 +1,14 @@
 # MorseCodeTool
 
-## How the app works:
+## Licence: MIT
+
+## Application objective:
+
+I wanted to try out how to create an infinite audio stream in .net core
+and generate some audio signal into it.  
+Morse code seemed to me to be an ideal and simple enough choice.
+
+## How the application works:
 
 The input text is translated into Morse code.  
 Morse code is translated into a field of spaces and the character X, where X is an audio signal.  
@@ -10,8 +18,10 @@ For example, the text SOS is translates:
 to morse code: `... --- ... `  
 to instrumental sequence: `x x x   xxx xxx xxx   x x x       `  
 
-I need to widen the space between letters and the space between words.  
-Letter spacing is ASCII 32, word spacing is ASCII 160.
+Spaces between letters and between words need to be stretched to respect the rules of morse code. 
+I wanted the spaces to still be spaces when output to the console, but the application needs to 
+distinguish between spaces between letters and between words, 
+so I decided to use ASCII 32 and for word spacing use ASCII 160.
 
 I declare that one instrument lasts a tenth of a second.  
 Subsequently, the number of samples per instrument is calculated.  
