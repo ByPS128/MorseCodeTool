@@ -51,7 +51,8 @@ public class MorseWaveProvider : IWaveProvider
 
         // I will create a temporary array of floats which I will then convert to flats
         // For 16 bit, 2 bytes per sample
-        var halfCount = count / 2;
+        int bufferSize = count - offset;
+        var halfCount = bufferSize / 2;
         var pool = ArrayPool<float>.Shared;
         var rentedArray = pool.Rent(halfCount); // Rent() may return an array larger than I ordered.
         var floatBuffer = rentedArray.AsSpan(0, halfCount); // This is how I make sure I'm working with a correctly sized rented array.
@@ -80,7 +81,7 @@ public class MorseWaveProvider : IWaveProvider
                 pool.Return(rentedArray);
             }
 
-            return count; // We will return the number of processed bytes
+            return bufferSize; // We will return the number of processed bytes
         }
         catch (Exception e)
         {
